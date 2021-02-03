@@ -1,8 +1,8 @@
 /* eslint-disable prettier/prettier */
 
 const utils = {
-    MyCoolPay: NoteBook,
-    copyright: ' © 2020',
+    NoteBook: 'NoteBook',
+    copyright: ' © 2021',
     version: '1.0.0',
 };
 
