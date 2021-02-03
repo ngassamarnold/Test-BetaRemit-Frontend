@@ -10,6 +10,6 @@ const reducers = combineReducers({
 
 const middleware = [thunk];
 
-const store = createStore(reducers, {}, composeWithDevTools(applyMiddleware(...middleware)));
+const store = createStore(reducers, {}, composeWithDevTools(applyMiddleware(...middleware)),);
 
 export default store;
