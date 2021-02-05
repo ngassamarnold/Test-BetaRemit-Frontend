@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../constants/colors'
 import WavyHeader from '../../components/header'
-import { BR, TextTitle, FlatList, TextBold, Touch, SrollView, Card, Text, Center, CR, Content, Cycle, FlexRow } from '../../components/utils'
+import { BR, TextTitle,FlatList, TextBold, Touch, SrollView, Card, Text, Center, CR, Content, Cycle, FlexRow } from '../../components/utils'
 import { InlineText } from '../../components/Text/InlineText'
 import { FloatBtn } from '../../components/buttons/floatBtn'
 import { CardNote } from '../../components/cardNote'
@@ -37,10 +37,10 @@ export default function Home({ navigation: { navigate, goBack } }) {
             <BR val={6} />
             <SrollView>
                 <TextTitle size={18} colorTitle={colors.black} left='10'> Todo </TextTitle>
-                <BR />
                 <Center>
                     <Card borderColor={colors.red} bg={colors.pink} height={300} >
-                        <Center>
+                        <Text size="15" position='justify' color={colors.black}>{"\t"} Your notes to do </Text>
+                        <Center> 
                             <FlatList
                                 data={NOTES}
                                 extraData={null}
@@ -57,9 +57,9 @@ export default function Home({ navigation: { navigate, goBack } }) {
                 </Center>
                 <BR val={2} />
                 <TextTitle size={18} colorTitle={colors.black} left='10'> Done </TextTitle>
-                <BR />
                 <Center>
                     <Card borderColor={colors.lightGreen} bg={colors.lightGreen} height={300} >
+                        <Text size="15" position='justify' color={colors.black}>{"\t"} You finished notes</Text>
                         <Center>
                             <FlatList
                                 data={NOTES}

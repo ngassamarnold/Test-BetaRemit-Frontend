@@ -89,7 +89,7 @@ const Touch = styled.TouchableOpacity`
 const Card = styled.View`
     background-color: ${props => props.bg || colors.white};
     width: ${props => props.width || '95%'};
-    height:  ${props => props.height || 125}px;
+    height:  ${props => props.height || 95}px;
     border-radius: 10px;
     justifyContent:${props => props.jc || 'center'} ;
     border: 0.55px ${props => props.borderColor || colors.blue};
