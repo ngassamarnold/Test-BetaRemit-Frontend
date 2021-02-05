@@ -6,7 +6,7 @@ import Font from '../../constants/font';
 
 
 
-const SrollForm = styled.ScrollView.attrs(props => ({
+const SrollView = styled.ScrollView.attrs(props => ({
   keyboardShouldPersistTaps: 'always',
 }))`
 `;
@@ -126,4 +126,4 @@ const FlatList = styled.FlatList.attrs(props => ({ keyboardShouldPersistTaps: 'a
 `;
 
 
-export { SrollVIew, FlatList, SrollForm, Center, ImgTouchable, TextBold, BR, Touch,Content, FlexRow, Card, HR, Options, CR, TextTitle, ContentButton, ContentProduct, Cycle, Text, OutsideModal };
+export { SrollVIew, FlatList, SrollView, Center, ImgTouchable, TextBold, BR, Touch,Content, FlexRow, Card, HR, Options, CR, TextTitle, ContentButton, ContentProduct, Cycle, Text, OutsideModal };

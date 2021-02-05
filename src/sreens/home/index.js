@@ -4,11 +4,13 @@ import styled from 'styled-components'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../constants/colors'
 import WavyHeader from '../../components/header'
-import { BR, TextTitle, FlatList, TextBold, Touch, SrollForm, Card, Text, Center, CR, Content, Cycle, FlexRow } from '../../components/utils'
+import { BR, TextTitle, FlatList, TextBold, Touch, SrollView, Card, Text, Center, CR, Content, Cycle, FlexRow } from '../../components/utils'
 import { InlineText } from '../../components/Text/InlineText'
 import { FloatBtn } from '../../components/buttons/floatBtn'
 import { CardNote } from '../../components/cardNote'
 import { NOTES } from '../../constants/fakeData'
+import { utils } from '../../constants/utils'
+
 export default function Home({ navigation: { navigate, goBack } }) {
 
     useEffect(() => {
@@ -26,10 +28,10 @@ export default function Home({ navigation: { navigate, goBack } }) {
                         <Icon active color={colors.white} size={24} name='format-align-left' />
                     </IconLeft>
                 </Touch>
-                <TextTitle left={25}> NoteBook </TextTitle>
+                <TextTitle left={25}> {utils.NoteBook} </TextTitle>
             </FlexRow>
             <BR val={6} />
-            <SrollForm>
+            <SrollView>
                 <TextTitle size={18} colorTitle={colors.black} left='10'> Todo </TextTitle>
                 <BR />
                 <Center>
@@ -70,7 +72,7 @@ export default function Home({ navigation: { navigate, goBack } }) {
                     </Card>
                 </Center>
                 <BR val={3} />
-            </SrollForm>
+            </SrollView>
 
             <FloatBtn onPress={() => console.log('okx')} >
                 <Icon active color={colors.blue} size={44} name='plus' />
