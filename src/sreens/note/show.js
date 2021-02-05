@@ -1,7 +1,8 @@
 /* eslint-disable prettier/prettier */
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import MIcons from 'react-native-vector-icons/MaterialIcons';
 import { Center, BR, Content, Options, SrollView, TextTitle, FlatList, Text, CR, HR, FlexRow, ImgTouchable } from '../../components/utils';
 import colors from '../../constants/colors';
 import HeaderGoback from '../../components/header/headerInline'
@@ -35,13 +36,13 @@ export default function showNote({ route, navigation: { goBack } }) {
             {/* <Center> */}
             <ContentButton>
                 <Center>
-                    <Icon active color={ colors.black} size={24} name='arrow-left' />
+                    <Icon active color={ colors.black} size={24} name='edit' />
                 </Center>
                 <UpdateDate>
                     <Text size="15" position='justify' color={colors.black}>{"\t"} Dernière modification: {hour}</Text>
                 </UpdateDate>
                 <IconBar>
-                    <Icon active color={colors.black} size={24} name='arrow-left' />
+                    <MIcons active color={colors.black} size={24} name='delete-outline' />
                 </IconBar>
             </ContentButton>
             {/* </Center> */}
@@ -53,11 +54,12 @@ const DescriptionNote = styled.View`
     width:90%;
 `;
 const IconBar = styled.View`
-  width:10%;
+  width:12%;
 `;
 const UpdateDate = styled.View`
-  width:90%;
+  width:88%;
   align-items:center;
+  right:10px;
 `;
 const ContentButton = styled(FlexRow)`
   padding:10px;
