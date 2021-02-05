@@ -16,6 +16,10 @@ export default function Home({ navigation: { navigate, goBack } }) {
     useEffect(() => {
     }, [])
 
+    const showNote = (note) => {
+        navigate('ShowNote', { note: note })
+    }
+
     return (
         <Content>
             <WavyHeader top={30} height={50} />
@@ -43,7 +47,7 @@ export default function Home({ navigation: { navigate, goBack } }) {
                                 keyExtractor={(item, index) => index + ''}
                                 renderItem={({ item, index }) => <CardNote
                                     data={item}
-                                    onPress={() => console.log(item.key)}
+                                    onPress={() => showNote(item)}
                                 />}
                                 removeClippedSubviews={true}
                                 onScroll={() => null}

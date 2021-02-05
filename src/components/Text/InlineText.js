@@ -5,8 +5,8 @@ import { Text } from 'react-native'
 import colors from '../../constants/colors'
 
 export const InlineText = (props) => {
-    let { text, bg, size, top, fontWeight, left } = props
-    return (<Text numberOfLines={4} style={{
+    let { text, bg, size, top, fontWeight, left, numberOfLines } = props
+    return (<Text numberOfLines={numberOfLines || 4} style={{
         fontSize: size || 12,
         marginTop: top || 3,
         marginLeft: left || 10,

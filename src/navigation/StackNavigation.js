@@ -2,6 +2,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../sreens/home'
+import ShowNote from '../sreens/note/show'
 
 
 const settings = {
@@ -14,6 +15,7 @@ const settings = {
 
 const nodes = [
   { name: 'Home', screen: Home },
+  { name: 'ShowNote', screen: ShowNote },
 ];
 
 const Stack = createStackNavigator();

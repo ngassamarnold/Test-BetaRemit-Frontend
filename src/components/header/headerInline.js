@@ -9,26 +9,25 @@ import { InlineText } from '../../components/Text/InlineText'
 
 
 export default function HeaderGoback(props) {
-    let { title, color, colorTitle, colorIcon, colorBar } = props;
+    let { title, color, colorTitle, colorIcon, colorBar, numberOfLines } = props;
     const onPress = props.onPress || (() => { });
     return (
         <ContentgoBack colorBar={colorBar}>
             <StatusBar backgroundColor={colors.stausBarColor} barStyle='default' />
             <FlexRow>
+                <Space/>
                 <TouchIcon
                     onPress={() => onPress()}
                 >
-                    <IconLeft>
+                    {/* <IconLeft> */}
                         <Icon active color={colorIcon || colors.black} size={24} name='arrow-left' />
-                    </IconLeft>
+                    {/* </IconLeft> */}
                 </TouchIcon>
-                <Center>
+                {/* <Center> */}
                     <ContentText>
-                        <InlineText bg={colorTitle} size={18} text={title} /> 
+                    <InlineText bg={colorTitle} left={0} size={18} text={title} numberOfLines={numberOfLines || 1} />
                     </ContentText>
-                </Center>
-                {/* <TextTitle size="23" colorTitle={color || colors.black}> {title}</TextTitle> */}
-
+                {/* </Center> */} 
             </FlexRow>
         </ContentgoBack>
     )
@@ -36,19 +35,16 @@ export default function HeaderGoback(props) {
 const ContentgoBack = styled.View`
     width: 100%;
     background-color: ${props => props.colorBar || colors.white};
-    paddingTop: 5px;
     height:65px;
     justify-content:center;
 `;
 const TouchIcon = styled.TouchableOpacity`
-width:10%;
+    width:5%;
+    justify-content:center;
 `;
 const ContentText = styled.View`
-width:80%;
+    width:90%;
 `;
-const IconLeft = styled.View`
-    justify-content:center;
-    align-items: flex-start;
-    width:100%;
-    margin-left:10px;
+const Space = styled.View`
+    width:5%;
 `;
