@@ -1,120 +1,96 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+/* eslint-disable prettier/prettier */
+import React, { useEffect, useState } from 'react'
+import styled from 'styled-components'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import colors from '../../constants/colors'
+import WavyHeader from '../../components/header'
+import { BR, TextTitle, FlatList, TextBold, Touch, SrollForm, Card, Text, Center, CR, Content, Cycle, FlexRow } from '../../components/utils'
+import { InlineText } from '../../components/Text/InlineText'
+import { FloatBtn } from '../../components/buttons/floatBtn'
+import { CardNote } from '../../components/cardNote'
+import { NOTES } from '../../constants/fakeData'
+export default function Home({ navigation: { navigate, goBack } }) {
 
-import React from 'react';
-import {
-    SafeAreaView,
-    StyleSheet,
-    ScrollView,
-    View,
-    Text,
-    StatusBar,
-} from 'react-native';
-import { useStore, useDispatch } from 'react-redux'
-
-import {
-    Header,
-    LearnMoreLinks,
-    Colors,
-    DebugInstructions,
-    ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const App: () => React$Node = () => {
-    const store = useStore();
-    const { todo } = store.getState();
-    console.log(todo)
-
+    useEffect(() => {
+    }, [])
 
     return (
-        <>
-            <StatusBar barStyle="dark-content" />
-            <SafeAreaView>
-                <ScrollView
-                    contentInsetAdjustmentBehavior="automatic"
-                    style={styles.scrollView}>
-                    <Header />
-                    {global.HermesInternal == null ? null : (
-                        <View style={styles.engine}>
-                            <Text style={styles.footer}>Engine: Hermes</Text>
-                        </View>
-                    )}
-                    <View style={styles.body}>
-                        <View style={styles.sectionContainer}>
-                            <Text style={styles.sectionTitle}>Step One</Text>
-                            <Text style={styles.sectionDescription}>
-                                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-                        </View>
-                        <View style={styles.sectionContainer}>
-                            <Text style={styles.sectionTitle}>See Your Changes</Text>
-                            <Text style={styles.sectionDescription}>
-                                <ReloadInstructions />
-                            </Text>
-                        </View>
-                        <View style={styles.sectionContainer}>
-                            <Text style={styles.sectionTitle}>Debug</Text>
-                            <Text style={styles.sectionDescription}>
-                                <DebugInstructions />
-                            </Text>
-                        </View>
-                        <View style={styles.sectionContainer}>
-                            <Text style={styles.sectionTitle}>Learn More</Text>
-                            <Text style={styles.sectionDescription}>
-                                Read the docs to discover what to do next:
-              </Text>
-                        </View>
-                        <LearnMoreLinks />
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
-        </>
+        <Content>
+            <WavyHeader top={30} height={50} />
+            <BR />
+            <FlexRow>
+                <Touch
+                    onPress={() => alert("ok")}
+                >
+                    <IconLeft>
+                        <Icon active color={colors.white} size={24} name='format-align-left' />
+                    </IconLeft>
+                </Touch>
+                <TextTitle left={25}> NoteBook </TextTitle>
+            </FlexRow>
+            <BR val={6} />
+            <SrollForm>
+                <TextTitle size={18} colorTitle={colors.black} left='10'> Todo </TextTitle>
+                <BR />
+                <Center>
+                    <Card borderColor={colors.red} bg={colors.pink} height={300} >
+                        <Center>
+                            <FlatList
+                                data={NOTES}
+                                extraData={null}
+                                keyExtractor={(item, index) => index + ''}
+                                renderItem={({ item, index }) => <CardNote
+                                    data={item}
+                                    onPress={() => console.log(item.key)}
+                                />}
+                                removeClippedSubviews={true}
+                                onScroll={() => null}
+                            />
+                        </Center>
+                    </Card>
+                </Center>
+                <BR val={2} />
+                <TextTitle size={18} colorTitle={colors.black} left='10'> Done </TextTitle>
+                <BR />
+                <Center>
+                    <Card borderColor={colors.lightGreen} bg={colors.lightGreen} height={300} >
+                        <Center>
+                            <FlatList
+                                data={NOTES}
+                                extraData={null}
+                                keyExtractor={(item, index) => index + ''}
+                                renderItem={({ item, index }) => <CardNote
+                                    data={item}
+                                    onPress={() => console.log(item.key)}
+                                />}
+                                removeClippedSubviews={true}
+                                onScroll={() => null}
+                            />
+                        </Center>
+                    </Card>
+                </Center>
+                <BR val={3} />
+            </SrollForm>
+
+            <FloatBtn onPress={() => console.log('okx')} >
+                <Icon active color={colors.blue} size={44} name='plus' />
+            </FloatBtn>
+
+        </Content>
     );
-};
+}
 
-const styles = StyleSheet.create({
-    scrollView: {
-        backgroundColor: Colors.lighter,
-    },
-    engine: {
-        position: 'absolute',
-        right: 0,
-    },
-    body: {
-        backgroundColor: Colors.white,
-    },
-    sectionContainer: {
-        marginTop: 32,
-        paddingHorizontal: 24,
-    },
-    sectionTitle: {
-        fontSize: 24,
-        fontWeight: '600',
-        color: Colors.black,
-    },
-    sectionDescription: {
-        marginTop: 8,
-        fontSize: 18,
-        fontWeight: '400',
-        color: Colors.dark,
-    },
-    highlight: {
-        fontWeight: '700',
-    },
-    footer: {
-        color: Colors.dark,
-        fontSize: 12,
-        fontWeight: '600',
-        padding: 4,
-        paddingRight: 12,
-        textAlign: 'right',
-    },
-});
 
-export default App;
+
+const IconLeft = styled.View`
+    justify-content:center;
+    align-items: flex-start;
+    width:100%;
+    margin-left:10px;
+`;
+const Hour = styled.View`
+    justify-content:center;
+    align-items:flex-end;
+    padding:5px;
+`;
+

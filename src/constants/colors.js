@@ -24,5 +24,7 @@ export default {
     stausBarColor:'#006CAB',
     colorFacebook:'#4267B2',
     colorTwitter:'#00acee',
-    colorWhatsapp :'#25D366'
+    colorWhatsapp :'#25D366',
+    pink:'#fce4ec',
+    lightBlue:'#e1f5fe'
 };
