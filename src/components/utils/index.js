@@ -104,10 +104,7 @@ const Content = styled.View`
     flex:1;
 `;
 
-const ContentButton = styled.View`
-  justify-content:flex-end;
-  flex:1;
-`;
+
 const Options = styled.View`
   flex-direction:row; 
   flex:1;
@@ -126,4 +123,4 @@ const FlatList = styled.FlatList.attrs(props => ({ keyboardShouldPersistTaps: 'a
 `;
 
 
-export { SrollVIew, FlatList, SrollView, Center, ImgTouchable, TextBold, BR, Touch,Content, FlexRow, Card, HR, Options, CR, TextTitle, ContentButton, ContentProduct, Cycle, Text, OutsideModal };
+export { SrollVIew, FlatList, SrollView, Center, ImgTouchable, TextBold, BR, Touch, Content, FlexRow, Card, HR, Options, CR, TextTitle, ContentProduct, Cycle, Text, OutsideModal };

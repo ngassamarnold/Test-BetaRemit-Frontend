@@ -1,6 +1,5 @@
 import React from 'react'
 import styled from 'styled-components'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../constants/colors'
 import { BR, TextTitle, TextBold, Touch, SrollForm, Card, Text, Center, CR, Content, Cycle, FlexRow } from '../../components/utils'
 import { InlineText } from '../../components/Text/InlineText'

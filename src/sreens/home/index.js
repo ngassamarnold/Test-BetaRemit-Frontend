@@ -67,7 +67,7 @@ export default function Home({ navigation: { navigate, goBack } }) {
                                 keyExtractor={(item, index) => index + ''}
                                 renderItem={({ item, index }) => <CardNote
                                     data={item}
-                                    onPress={() => console.log(item.key)}
+                                    onPress={() => showNote(item)}
                                 />}
                                 removeClippedSubviews={true}
                                 onScroll={() => null}
