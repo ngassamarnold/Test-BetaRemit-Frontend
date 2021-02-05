@@ -3,6 +3,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../sreens/home'
 import ShowNote from '../sreens/note/show'
+import Notebook from '../sreens/note'
 
 
 const settings = {
@@ -16,6 +17,7 @@ const settings = {
 const nodes = [
   { name: 'Home', screen: Home },
   { name: 'ShowNote', screen: ShowNote },
+  { name: 'Notebook', screen: Notebook },
 ];
 
 const Stack = createStackNavigator();

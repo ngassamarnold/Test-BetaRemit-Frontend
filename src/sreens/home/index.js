@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../constants/colors'
 import WavyHeader from '../../components/header'
-import { BR, TextTitle,FlatList, TextBold, Touch, SrollView, Card, Text, Center, CR, Content, Cycle, FlexRow } from '../../components/utils'
+import Button from '../../components/buttons'
+import { BR, TextTitle, FlatList, TextBold, Touch, SrollView, Card, Text, Center, CR, Content, Cycle, FlexRow } from '../../components/utils'
 import { InlineText } from '../../components/Text/InlineText'
 import { FloatBtn } from '../../components/buttons/floatBtn'
 import { CardNote } from '../../components/cardNote'
@@ -13,11 +14,16 @@ import { utils } from '../../constants/utils'
 
 export default function Home({ navigation: { navigate, goBack } }) {
 
+    const [lastTodo, setLastTodo] = useState(NOTES.slice(0, 2));
+
     useEffect(() => {
     }, [])
 
     const showNote = (note) => {
         navigate('ShowNote', { note: note })
+    }
+    const showNoteBook = (type) => {
+        navigate('Notebook', { type: type })
     }
 
     return (
@@ -36,13 +42,13 @@ export default function Home({ navigation: { navigate, goBack } }) {
             </FlexRow>
             <BR val={6} />
             <SrollView>
-                <TextTitle size={18} colorTitle={colors.black} left='10'> Todo </TextTitle>
+                <TextTitle size={18} colorTitle={colors.black} left='10'> {utils.todo} </TextTitle>
                 <Center>
                     <Card borderColor={colors.red} bg={colors.pink} height={300} >
                         <Text size="15" position='justify' color={colors.black}>{"\t"} Your notes to do </Text>
-                        <Center> 
+                        <Center>
                             <FlatList
-                                data={NOTES}
+                                data={lastTodo}
                                 extraData={null}
                                 keyExtractor={(item, index) => index + ''}
                                 renderItem={({ item, index }) => <CardNote
@@ -52,17 +58,30 @@ export default function Home({ navigation: { navigate, goBack } }) {
                                 removeClippedSubviews={true}
                                 onScroll={() => null}
                             />
+                            <Button
+                                onPress={() => showNoteBook(utils.todo)}
+                                title={'see all'}
+                                br={8}
+                                size={15}
+                                height={30}
+                                isloading={false}
+                                bg={colors.white}
+                                borderColor={colors.blue}
+                                textColor={colors.blue}
+                                width="25%"
+                            />
                         </Center>
+
                     </Card>
                 </Center>
                 <BR val={2} />
-                <TextTitle size={18} colorTitle={colors.black} left='10'> Done </TextTitle>
+                <TextTitle size={18} colorTitle={colors.black} left='10'> {utils.done} </TextTitle>
                 <Center>
                     <Card borderColor={colors.lightGreen} bg={colors.lightGreen} height={300} >
                         <Text size="15" position='justify' color={colors.black}>{"\t"} You finished notes</Text>
                         <Center>
                             <FlatList
-                                data={NOTES}
+                                data={lastTodo}
                                 extraData={null}
                                 keyExtractor={(item, index) => index + ''}
                                 renderItem={({ item, index }) => <CardNote
@@ -71,6 +90,18 @@ export default function Home({ navigation: { navigate, goBack } }) {
                                 />}
                                 removeClippedSubviews={true}
                                 onScroll={() => null}
+                            />
+                            <Button
+                                onPress={() => showNoteBook(utils.done)}
+                                title={'see all'}
+                                br={8}
+                                size={15}
+                                height={30}
+                                isloading={false}
+                                bg={colors.white}
+                                borderColor={colors.blue}
+                                textColor={colors.blue}
+                                width="25%"
                             />
                         </Center>
                     </Card>
