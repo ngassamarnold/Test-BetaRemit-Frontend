@@ -8,7 +8,7 @@ import Ion from 'react-native-vector-icons/Ionicons'
 import { Text, Center, BR, TextTitle, CR, OutsideModal } from '../../components/utils'
 
 export default function Modals(props) {
-    let { visibleModal, text, err, codeUssd, componentModal } = props;
+    let { visibleModal, text, err, codeUssd } = props;
     const onPressModal = props.onPressModal || (() => { });
 
     return (

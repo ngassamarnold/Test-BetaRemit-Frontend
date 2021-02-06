@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useDispatch, useStore } from 'react-redux'
 import colors from '../../constants/colors'
 import WavyHeader from '../../components/header'
 import Button from '../../components/buttons'
@@ -11,12 +12,18 @@ import { FloatBtn } from '../../components/buttons/floatBtn'
 import { CardNote } from '../../components/cardNote'
 import { NOTES } from '../../constants/fakeData'
 import { utils } from '../../constants/utils'
+import { AddNote } from '../note/create'
 
 export default function Home({ navigation: { navigate, goBack } }) {
 
     const [lastTodo, setLastTodo] = useState(NOTES.slice(0, 2));
+    const [visible, setVisible] = useState(0);
+    const dispatch = useDispatch()
+    const store = useStore();
+    const { todo } = store.getState()
 
     useEffect(() => {
+        console.log(todo)
     }, [])
 
     const showNote = (note) => {
@@ -24,6 +31,14 @@ export default function Home({ navigation: { navigate, goBack } }) {
     }
     const showNoteBook = (type) => {
         navigate('Notebook', { type: type })
+    }
+    const createNote = () => {
+        if (visible === 0) setVisible(1);
+        else if (visible === 1) setVisible('done');
+        else setVisible(1);
+    }
+    const UpdataComponent = () => {
+        setVisible(false)
     }
 
     return (
@@ -109,9 +124,10 @@ export default function Home({ navigation: { navigate, goBack } }) {
                 <BR val={3} />
             </SrollView>
 
-            <FloatBtn onPress={() => console.log('okx')} >
+            <FloatBtn onPress={() => createNote()} >
                 <Icon active color={colors.blue} size={44} name='plus' />
             </FloatBtn>
+            <AddNote visible={visible} UpdataComponent={UpdataComponent} />
 
         </Content>
     );

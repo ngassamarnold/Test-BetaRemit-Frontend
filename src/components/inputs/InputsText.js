@@ -33,9 +33,9 @@ const Input = styled.TextInput.attrs(props => ({
   `;
 
 const ContentInput = styled(FlexRow)`
-    height:52px;
+    height: ${props => props.heightInput || 52}px;
     border-color: gray;
-    border-radius:30px;
+    border-radius:10px;
     borderWidth: 0.3px;
     padding-horizontal: 20px;
     font-size: 16px;

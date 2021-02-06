@@ -2,12 +2,13 @@
 import { ADD_TODO, UPDATE_TODO, DELETE_TODO } from '../constants/actions-redux';
 import { deleteObjetInArray, findIndexObjetInArray } from '../helpers'
 
-const INITIAL_STATE = [{id:"33"}];
+const INITIAL_STATE = [{ id: "33" }];
 
 export default function (state = INITIAL_STATE, action) {
     switch (action.type) {
         case ADD_TODO: {
-            return [...state, ...action.payload];
+            let index = state.length;
+            return [...state, ...action.payload, index];
         }
         case DELETE_TODO: {
             return deleteObjetInArray(state, action.payload.index);
@@ -19,5 +20,7 @@ export default function (state = INITIAL_STATE, action) {
         }
         default:
             return state;
+            // return [...state, { index: 1 }];
+
     }
 }

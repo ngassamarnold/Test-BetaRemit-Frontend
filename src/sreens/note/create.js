@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useStore } from 'react-redux'
 import { Modalize } from 'react-native-modalize';
 import colors from '../../constants/colors'
 import { BR, Center, Text, TextTitle, HR, CR } from '../../components/utils'
@@ -16,18 +16,22 @@ import Loading from '../../components/modals/loader'
 
 
 export const AddNote = (props) => {
-    const dispatch = useDispatch()
-
-    const { visible, user, UpdataComponent3 } = props
-    const { authorization_token } = user
+    const { visible, UpdataComponent } = props
     const modalizeRef = useRef(null);
     const [amount, SetAmount] = useState('');
+    const [title, SetTitle] = useState('');
+    const [description, SetDescription] = useState('');
+
+    const dispatch = useDispatch()
+    const store = useStore();
+    const { todo } = store.getState()
+    console.log(todo)
+
     const [loading, SetLoading] = useState(false);
     const [textModal, setTextModal] = useState('');
     const [visibleModal, setVisibleModal] = useState(false);
     const [err, setErr] = useState(true);
     const [toggle, setToggle] = useState(true);
-    const [flag, setFlag] = useState(defaultFlag);
     const [phone, setPhone] = useState('');
     const [phoneCode, setPhoneCode] = useState('237');
     const [transactionRef, setTransactionRef] = useState('');
@@ -35,7 +39,6 @@ export const AddNote = (props) => {
     const [code, setCode] = useState('');
     const [statusTransaction, setStatutTransaction] = useState(false);
     const [finishScreen, setFinishScreen] = useState(false);
-    const [codeUssd, setCodeUssd] = useState('')
 
 
     const _onPhoneChange = (val) => {
@@ -55,11 +58,15 @@ export const AddNote = (props) => {
         setTextModal('')
         setVisibleModal(false)
         if (finishScreen) handleClose()
-        if (statusTransaction) statusDeposit()
     }
+    useEffect(() => {
+        if (visible) handleOpen();
+        else if (visible === false) handleClose();
+        else if (visible === 'done') handleOpen();
+    });
 
     const statusDeposit = () => {
-        Request.get(Routes.transaction.STATUS_DESPOSIT + transactionRef, authorization_token)
+        Request.get(Routes.transaction.STATUS_DESPOSIT + transactionRef)
             .then(response => {
                 setStatutTransaction(false)
                 setTextModal(response.data.transaction_message);
@@ -103,7 +110,10 @@ export const AddNote = (props) => {
     }
 
     const _onDescriptionChange = (val) => {
-        SetAmount(val)
+        SetDescription(val)
+    }
+    const _onTitleChange = (val) => {
+        SetTitle(val)
     }
 
     const onCodeChange = (val) => {
@@ -123,7 +133,7 @@ export const AddNote = (props) => {
     const _checkCode = (val) => {
         setCode('')
         SetLoading(true)
-        Request.post(Routes.transaction.AUTHORIZE, { transaction_ref: transactionRef, code: val }, authorization_token)
+        Request.post(Routes.transaction.AUTHORIZE, { transaction_ref: transactionRef, code: val },)
             .then(response => {
                 setErr(false)
                 setStep('1')
@@ -163,7 +173,7 @@ export const AddNote = (props) => {
 
     const handleClose = () => {
         cleanState()
-        UpdataComponent3()
+        UpdataComponent()
         setStep('1')
         if (modalizeRef.current) {
             modalizeRef.current.close();
@@ -173,7 +183,7 @@ export const AddNote = (props) => {
     const Submit = () => {
         setFinishScreen(false)
         let body = { phone_number: phone, amount }
-        Request.post(Routes.transaction.DEPOSIT, body, authorization_token)
+        Request.post(Routes.transaction.DEPOSIT, body,)
             .then(response => {
                 setErr(false)
                 SetLoading(false)
@@ -203,28 +213,14 @@ export const AddNote = (props) => {
             });
     }
     const CheckInfo = () => {
-        let check = phone.length > 0 && amount.length > 0;
-        switch (true) {
-            case !check:
-                setTextModal(I18n.t('fill_all_field'));
-                setVisibleModal(true);
-                break;
-            case amount < utils.MinDeposit:
-                setErr(true)
-                setTextModal('Le montant doit être au moins de' + utils.MinDeposit + utils.xaf);
-                setVisibleModal(true);
-                break;
-            case !Validations.isValidPhoneNumber(phoneCode + phone):
-                setVisibleModal(true)
-                setTextModal(I18n.t('phone_invalid'))
-                break;
-            default:
-                SetLoading(true);
-                Submit();
-                break;
+        let check = title.length > 0 && description.length > 0;
+        if (!check) {
+            setTextModal('Please fill in all fields');
+            setVisibleModal(true);
         }
-
-        //handleClose();
+        else {
+            console.log(title, description)
+        }
     }
 
     const renderContent = () => (
@@ -246,42 +242,36 @@ export const AddNote = (props) => {
                     <BR val="1" />
                     <TextInput
                         placeholder='Title'
-                        onValueChange={_onDescriptionChange}
-                        value={amount}
+                        onValueChange={_onTitleChange}
+                        value={title}
                     />
                     <BR val="1" />
                     <TextInput
                         placeholder='Description'
+                        heightInput={100}
                         onValueChange={_onDescriptionChange}
-                        value={amount}
+                        value={description}
                     />
                     <BR val="2" />
                     <Center>
                         <Button
-                            // onPress={() => CheckInfo()}
-                            title={I18n.t('depot')}
+                            onPress={() => CheckInfo()}
+                            title='Create'
                             isloading={false}
-                            width="100%"
+                            width="95%"
                             weight={font.regular}
                             size="15"
+                            br={15}
                         />
                     </Center>
                 </CR>
                 <Loading visibleModal={loading} />
             </View>
-
-            {/* <Alert text={textModal} codeUssd={codeUssd} visibleModal={visibleModal}
-                onPressModal={() => desableModal()}
-                err={err} /> */}
+            <Alert text={textModal} visibleModal={visibleModal} onPressModal={() => desableModal()} err={err} />
         </View>
     );
 
-    useEffect(() => {
-        // if (statusTransaction) checkStatutDeposit()
-        if (visible) handleOpen();
-        else if (visible === false) handleClose();
-        else if (visible === 'done') handleOpen();
-    });
+
 
 
 

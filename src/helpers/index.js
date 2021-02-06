@@ -12,5 +12,9 @@ export const findIndexObjetInArray = (array, id) => {
         return index;
     return false;
 };
+export const length_tab = (list) => {
+    return list.length;
+}
+
 
 
