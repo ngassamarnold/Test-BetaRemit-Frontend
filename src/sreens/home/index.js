@@ -13,6 +13,7 @@ import { CardNote } from '../../components/cardNote'
 import { NOTES } from '../../constants/fakeData'
 import { utils } from '../../constants/utils'
 import { AddNote } from '../note/create'
+import Storage from '../../helpers/Storage'
 
 export default function Home({ navigation: { navigate, goBack } }) {
 
@@ -23,6 +24,10 @@ export default function Home({ navigation: { navigate, goBack } }) {
     const { todo } = store.getState()
 
     useEffect(() => {
+        Storage.get('todo').then(data =>
+            console.log(data))
+            .catch(
+                err => console.log(err))
         console.log(todo)
     }, [])
 
