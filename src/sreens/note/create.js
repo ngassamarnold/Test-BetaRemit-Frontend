@@ -26,9 +26,9 @@ export const AddNote = (props) => {
     const dispatch = useDispatch()
     const store = useStore();
     const { todo } = store.getState()
-    console.log("todo")
-    console.log(todo)
-    console.log("todo")
+    // console.log("todo")
+    // console.log(todo)
+    // console.log("todo")
 
     const [loading, SetLoading] = useState(false);
     const [textModal, setTextModal] = useState('');
@@ -106,10 +106,10 @@ export const AddNote = (props) => {
             setFinishScreen(true)
             setTextModal('Note added successfully');
             setVisibleModal(true);
-            console.log(title, description)
+            // console.log(title, description)
             let newtitle = title + todo.length
             let newdescrip = description + todo.length
-            addNode([{ title: newtitle, description: newdescrip, index: todo.length }], todo, dispatch)
+            addNode([{ title: newtitle, description: newdescrip, index: todo.length }], dispatch, todo)
         }
     }
 

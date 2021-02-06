@@ -14,6 +14,7 @@ import { NOTES } from '../../constants/fakeData'
 import { utils } from '../../constants/utils'
 import { AddNote } from '../note/create'
 import Storage from '../../helpers/Storage'
+import { addNode } from '../../actions/todo'
 
 export default function Home({ navigation: { navigate, goBack } }) {
 
@@ -24,11 +25,14 @@ export default function Home({ navigation: { navigate, goBack } }) {
     const { todo } = store.getState()
 
     useEffect(() => {
-        Storage.get('todo').then(data =>
-            console.log(data))
-            .catch(
-                err => console.log(err))
+        // Storage.get(utils.todo).then(data => {
+        //     console.log(data)
+        //     if (data) addNode(data, dispatch)
+        // })
+        //     .catch(
+        //         err => console.log(err))
         console.log(todo)
+        console.log(todo.length) 
     }, [])
 
     const showNote = (note) => {
@@ -65,7 +69,7 @@ export default function Home({ navigation: { navigate, goBack } }) {
                 <TextTitle size={18} colorTitle={colors.black} left='10'> {utils.todo} </TextTitle>
                 <Center>
                     <Card borderColor={colors.red} bg={colors.pink} height={300} >
-                        <Text size="15" position='justify' color={colors.black}>{"\t"} Your notes to do </Text>
+                        <Text size="15" position='justify' color={colors.black}>{"\t"} Your notes to do {todo.length} </Text>
                         <Center>
                             <FlatList
                                 data={lastTodo}

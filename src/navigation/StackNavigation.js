@@ -4,10 +4,11 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from '../sreens/home'
 import ShowNote from '../sreens/note/show'
 import Notebook from '../sreens/note'
+import Splash from '../sreens/splash'
 
 
 const settings = {
-  initialRouteName: 'Home',
+  initialRouteName: 'Splash',
   headerMode: 'none',
   screenOptions: {
     animationEnabled: false,
@@ -16,6 +17,7 @@ const settings = {
 
 const nodes = [
   { name: 'Home', screen: Home },
+  { name: 'Splash', screen: Splash },
   { name: 'ShowNote', screen: ShowNote },
   { name: 'Notebook', screen: Notebook },
 ];
