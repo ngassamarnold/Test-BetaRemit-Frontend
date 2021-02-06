@@ -11,6 +11,7 @@ import Button from '../../components/buttons'
 import font from '../../constants/font'
 import Alert from '../../components/modals'
 import Loading from '../../components/modals/loader'
+import { addNode } from '../../actions/todo'
 
 
 
@@ -25,7 +26,9 @@ export const AddNote = (props) => {
     const dispatch = useDispatch()
     const store = useStore();
     const { todo } = store.getState()
+    console.log("todo")
     console.log(todo)
+    console.log("todo")
 
     const [loading, SetLoading] = useState(false);
     const [textModal, setTextModal] = useState('');
@@ -51,7 +54,6 @@ export const AddNote = (props) => {
         setFinishScreen(false)
         setTextModal('')
         setErr(true)
-        setCodeUssd('')
     }
 
     const desableModal = () => {
@@ -139,7 +141,6 @@ export const AddNote = (props) => {
                 setStep('1')
                 setTextModal(TextUssd(response.data.ussd))
                 // setTextModal("Veuillez valider sur la fenêtre USSD qui serra affichée! \n Ou composez le ");
-                // setCodeUssd(response.data.ussd)
                 setVisibleModal(true);
                 SetLoading(false)
                 setStatutTransaction(true)
@@ -200,7 +201,6 @@ export const AddNote = (props) => {
                     setTextModal(TextUssd(response.data.ussd))
 
                     // setTextModal("Une fenêtre de paiement devrait s'afficher sur votre mobile, entrez votre code secret pour valider le paiement.La fenêtre ne s\'affiche pas ? Composez " + response.data.ussd + ", puis entrez votre code secret pour valider la transaction.");
-                    // setCodeUssd(response.data.ussd)
                     setVisibleModal(true);
                     setFinishScreen(true)
                     // setStatutTransaction(true)
@@ -219,7 +219,14 @@ export const AddNote = (props) => {
             setVisibleModal(true);
         }
         else {
+            setErr(false)
+            setFinishScreen(true)
+            setTextModal('Note added successfully');
+            setVisibleModal(true);
             console.log(title, description)
+            let newtitle = title + todo.length
+            let newdescrip = description + todo.length
+            addNode([{ title: newtitle, description: newdescrip, index: todo.length }], dispatch)
         }
     }
 
