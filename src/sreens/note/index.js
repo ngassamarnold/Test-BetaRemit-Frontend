@@ -7,7 +7,7 @@ import colors from '../../constants/colors';
 import HeaderGoback from '../../components/header/headerInline'
 import { CardNote } from '../../components/cardNote'
 import { NOTES } from '../../constants/fakeData'
-
+import { FloatBtn } from '../../components/buttons/floatBtn'
 
 export default function ({ route: { params: { type } }, navigation: { goBack, navigate } }) {
 
@@ -32,13 +32,22 @@ export default function ({ route: { params: { type } }, navigation: { goBack, na
                         keyExtractor={(item, index) => index + ''}
                         renderItem={({ item, index }) => <CardNote
                             data={item}
-                            onPress={() => showNote(item)}
+                            type={type}
+                            pageNoteBook={true}
+                            delete={() => alert(item.key)}
+                            move={() => alert('move')}
+                            show={() => alert('show')}
+                           // onPress={() => showNote(item)}
                         />}
                         removeClippedSubviews={true}
                         onScroll={() => null}
                     />
                 </Center>
             </SrollView>
+
+            <FloatBtn onPress={() => console.log('okx')} >
+                <Icon active color={colors.blue} size={44} name='plus' />
+            </FloatBtn>
         </Content>
     );
 }

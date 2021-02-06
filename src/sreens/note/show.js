@@ -39,7 +39,7 @@ export default function showNote({ route, navigation: { goBack } }) {
                     <Icon active color={ colors.black} size={24} name='edit' />
                 </Center>
                 <UpdateDate>
-                    <Text size="15" position='justify' color={colors.black}>{"\t"} Dernière modification: {hour}</Text>
+                    <Text size="14" position='justify' color={colors.black}>{"\t"} Last update: {hour}</Text>
                 </UpdateDate>
                 <IconBar>
                     <MIcons active color={colors.black} size={24} name='delete-outline' />
