@@ -3,9 +3,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Colors from '../../constants/colors'
-import { utils } from '../../constants/utils';
 import { Center, FlexRow } from '../../components/utils'
-import { Text, TextTitle } from '../../components/utils';
 
 
 export default function TextInput(props) {
