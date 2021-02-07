@@ -27,7 +27,6 @@ export const CardNote = (props) => {
                     <InlineText bg={colors.black} size={13} text={hour} />
                 </Hour> :
                     <FlexRow>
-                        <Space />
                         <Move onPress={() => moveAction()} >
                             {type === utils.todo && <InlineText bg={colors.blue} size={13} text='move to done' />}
                         </Move>
@@ -51,20 +50,18 @@ const Hour = styled.View`
     align-items:flex-end;
     padding:5px;
 `;
-const Space = styled.View`
-    width:13%;
-`;
+
 const Move = styled.TouchableOpacity`
-    width:25%;
+    width:30%;
 `;
 const Delete = styled.TouchableOpacity`
     width:15%;
 `;
 const Date = styled.View`
-    width:35%;
+    width:40%;
 `;
 const Show = styled.TouchableOpacity`
-    width:12%;
+    width:15%;
 `;
 
 const ClikHere = styled.TouchableOpacity`

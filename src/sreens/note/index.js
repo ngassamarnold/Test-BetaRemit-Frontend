@@ -22,7 +22,7 @@ export default function ({ route: { params: { type } }, navigation, navigation: 
     const [visibleModal, setVisibleModal] = useState(false);
     const [err, setErr] = useState(true);
 
-   
+
     // console.log(todo)
     const delNote = (index) => {
         // alert(index)
