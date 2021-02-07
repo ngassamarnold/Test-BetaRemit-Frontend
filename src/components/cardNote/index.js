@@ -8,7 +8,7 @@ import { utils } from '../../constants/utils'
 export const CardNote = (props) => {
 
     let { data: { title, description, hour }, type, pageNoteBook } = props
-
+    console.log(hour)
     let onPress = props.onPress || (() => { })
     let deleteAction = props.delete || (() => { })
     let moveAction = props.move || (() => { })

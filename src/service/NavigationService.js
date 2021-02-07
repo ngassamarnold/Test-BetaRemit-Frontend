@@ -14,11 +14,12 @@ export default {
         )
     },
     goToTrough(navigation, middleRouteName, targetRouteName, params = {}) {
+        console.log(targetRouteName, params)
         Promise.all([
             navigation.dispatch(
                 CommonActions.reset({ index: 0, routes: [{ name: middleRouteName }] })
             )
         ])
-            .then(() => navigation.navigate(targetRouteName, params))
+            .then(() => navigation.navigate(targetRouteName, { params }))
     },
 }

@@ -10,39 +10,32 @@ import TextInput from '../../components/inputs/InputsText'
 import Button from '../../components/buttons'
 import font from '../../constants/font'
 import Alert from '../../components/modals'
-import Loading from '../../components/modals/loader'
 import { addNode } from '../../actions/todo'
-
+import FormatDate from '../../helpers/Date'
+import { updatedNoteTodo } from '../../actions/todo'
+import { updatedDone } from '../../actions/done'
+import { utils } from '../../constants/utils';
 
 
 
 export const AddNote = (props) => {
-    const { visible, UpdataComponent } = props
-    const modalizeRef = useRef(null);
-    const [amount, SetAmount] = useState('');
-    const [title, SetTitle] = useState('');
-    const [description, SetDescription] = useState('');
-
     const dispatch = useDispatch()
     const store = useStore();
-    const { todo } = store.getState()
-    // console.log("todo")
-    // console.log(todo)
-    // console.log("todo")
+    const { todo, done } = store.getState()
+    const { visible, UpdataComponent, note } = props
+    const modalizeRef = useRef(null);
+    const [title, SetTitle] = useState(note ? note.note.title : '');
+    const [description, SetDescription] = useState(note ? note.note.description : '');
 
-    const [loading, SetLoading] = useState(false);
     const [textModal, setTextModal] = useState('');
     const [visibleModal, setVisibleModal] = useState(false);
     const [err, setErr] = useState(true);
     const [toggle, setToggle] = useState(true);
-    const [phone, setPhone] = useState('');
-    const [phoneCode, setPhoneCode] = useState('237');
-    const [transactionRef, setTransactionRef] = useState('');
-    const [step, setStep] = useState('1');
-    const [code, setCode] = useState('');
-    const [statusTransaction, setStatutTransaction] = useState(false);
-    const [finishScreen, setFinishScreen] = useState(false);
 
+    const [finishScreen, setFinishScreen] = useState(false);
+    const date = FormatDate.fromIso(new Date()).iso;
+
+    // console.log(note)
 
 
 
@@ -101,15 +94,19 @@ export const AddNote = (props) => {
             setTextModal('Please fill in all fields');
             setVisibleModal(true);
         }
+        else if (note) {
+            let { type } = note
+            if (type = utils.todo)
+                updatedNoteTodo(dispatch, todo, note.note.index, { title, description, index: todo.length, hour: date })
+            alert('Edit')
+        }
         else {
             setErr(false)
             setFinishScreen(true)
             setTextModal('Note added successfully');
             setVisibleModal(true);
-            // console.log(title, description)
-            let newtitle = title + todo.length
-            let newdescrip = description + todo.length
-            addNode([{ title: newtitle, description: newdescrip, index: todo.length }], dispatch, todo)
+
+            addNode([{ title, description, index: todo.length, hour: date }], dispatch, todo)
         }
     }
 
@@ -122,7 +119,7 @@ export const AddNote = (props) => {
                     </TouchableOpacity>
                 </View>
                 <View style={s.infoBeneficiary} >
-                    <Text position="left" size="14" color={colors.blue}> Add todo note </Text>
+                    <Text position="left" size="14" color={colors.blue}> {!note ? 'Add todo note' : 'Edit note'}  </Text>
                 </View>
             </View>
             <HR />
@@ -146,7 +143,7 @@ export const AddNote = (props) => {
                     <Center>
                         <Button
                             onPress={() => CheckInfo()}
-                            title='Create'
+                            title={!note ? 'Create' : 'Edit note'}
                             isloading={false}
                             width="95%"
                             weight={font.regular}
@@ -155,7 +152,6 @@ export const AddNote = (props) => {
                         />
                     </Center>
                 </CR>
-                <Loading visibleModal={loading} />
             </View>
             <Alert text={textModal} visibleModal={visibleModal} onPressModal={() => desableModal()} err={err} />
         </View>

@@ -6,16 +6,32 @@ import MIcons from 'react-native-vector-icons/MaterialIcons';
 import { Center, BR, Content, Options, SrollView, TextTitle, FlatList, Text, CR, HR, FlexRow, ImgTouchable } from '../../components/utils';
 import colors from '../../constants/colors';
 import HeaderGoback from '../../components/header/headerInline'
+import Navigation from '../../service/NavigationService'
+import { AddNote } from '../note/create'
 
 
 
-export default function showNote({ route, navigation: { goBack } }) {
-    let { note: { description, title, hour } } = route.params;
+export default function showNote({ route, navigation, navigation: { navigate } }) {
+    let { note: { description, title, hour }, type } = route.params;
+
+    const [visible, setVisible] = useState(0);
+
+    const editNote = () => {
+        if (visible === 0) setVisible(1);
+        else if (visible === 1) setVisible('done');
+        else setVisible(1);
+    }
+
+    const UpdataComponent = () => {
+        setVisible(false)
+    }
+
     return (
         <Content>
             <HeaderGoback
                 title={title}
-                onPress={() => goBack()}
+                onPress={() => Navigation.goTo(navigation, 'Home')
+                }
                 colorBar={colors.blue}
                 colorTitle={colors.white}
                 colorIcon={colors.white}
@@ -33,11 +49,10 @@ export default function showNote({ route, navigation: { goBack } }) {
             <BR val="0.5" />
 
 
-            {/* <Center> */}
             <ContentButton>
-                <Center>
-                    <Icon active color={ colors.black} size={24} name='edit' />
-                </Center>
+                <Edit onPress={() => editNote()} >
+                    <Icon active color={colors.black} size={24} name='edit' />
+                </Edit>
                 <UpdateDate>
                     <Text size="14" position='justify' color={colors.black}>{"\t"} Last update: {hour}</Text>
                 </UpdateDate>
@@ -45,13 +60,17 @@ export default function showNote({ route, navigation: { goBack } }) {
                     <MIcons active color={colors.black} size={24} name='delete-outline' />
                 </IconBar>
             </ContentButton>
-            {/* </Center> */}
+            <AddNote visible={visible} UpdataComponent={UpdataComponent} note={route.params} />
+
         </Content>
     );
 }
 
 const DescriptionNote = styled.View`  
     width:90%;
+`;
+const Edit = styled.TouchableOpacity`  
+    align-items:center;
 `;
 const IconBar = styled.View`
   width:12%;

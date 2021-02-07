@@ -14,13 +14,11 @@ export default function (state = INITIAL_STATE, action) {
             return deleteObjetInArray(state, action.payload.index);
         }
         case UPDATE_TODO: {
-            let index = findIndexObjetInArray(state, action.payload.index);
-            state[index] = action.payload;
+            // let index = findIndexObjetInArray(state, action.payload.index);
+            state[action.payload.index] = action.payload;
             return state;
         }
         default:
             return state;
-        // return [...state, { index: 1 }];
-
     }
 }

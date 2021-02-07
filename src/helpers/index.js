@@ -12,9 +12,9 @@ export const findIndexObjetInArray = (array, id) => {
         return index;
     return false;
 };
-export const length_tab = (list) => {
-    return list.length;
-}
+
+export const to2Digits = int => (int < 10 ? '0' + int : int);
+
 
 
 

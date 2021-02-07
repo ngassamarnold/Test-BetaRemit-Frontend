@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useDispatch, useStore } from 'react-redux'
+import { useStore } from 'react-redux'
 import colors from '../../constants/colors'
 import WavyHeader from '../../components/header'
 import Button from '../../components/buttons'
@@ -13,32 +13,30 @@ import { CardNote } from '../../components/cardNote'
 import { NOTES } from '../../constants/fakeData'
 import { utils } from '../../constants/utils'
 import { AddNote } from '../note/create'
-import Storage from '../../helpers/Storage'
-import { addNode } from '../../actions/todo'
 
-export default function Home({ navigation: { navigate, goBack } }) {
 
-    const [lastTodo, setLastTodo] = useState(NOTES.slice(0, 2));
+export default function Home({ navigation, navigation: { navigate, goBack } }) {
+
+    const [lastTodo, setLastTodo] = useState([]);
+    // const [lastTodo, setLastTodo] = useState(NOTES.slice(0, 2));
     const [visible, setVisible] = useState(0);
-    const dispatch = useDispatch()
     const store = useStore();
-    const { todo } = store.getState()
+    const { todo, done } = store.getState()
+    console.log(done)
 
     useEffect(() => {
-        // Storage.get(utils.todo).then(data => {
-        //     console.log(data)
-        //     if (data) addNode(data, dispatch)
-        // })
-        //     .catch(
-        //         err => console.log(err))
         console.log(todo)
-        console.log(todo.length) 
+        console.log(todo.length)
+        setLastTodo(todo.slice(0, 2))
     }, [])
 
-    const showNote = (note) => {
-        navigate('ShowNote', { note: note })
+    const showNote = (note, type) => {
+        navigate('ShowNote', { note: note, type: type })
+        // Navigation.goToTrough(navigation, 'ShowNote', 'ShowNote', { params: note })
+
     }
     const showNoteBook = (type) => {
+        // Navigation.goToTrough(navigation, 'Notebook', 'Notebook', { type: type })
         navigate('Notebook', { type: type })
     }
     const createNote = () => {
@@ -66,10 +64,10 @@ export default function Home({ navigation: { navigate, goBack } }) {
             </FlexRow>
             <BR val={6} />
             <SrollView>
-                <TextTitle size={18} colorTitle={colors.black} left='10'> {utils.todo} </TextTitle>
+                <TextTitle size={18} colorTitle={colors.black} left='10'> {utils.todo} ({todo.length})</TextTitle>
                 <Center>
                     <Card borderColor={colors.red} bg={colors.pink} height={300} >
-                        <Text size="15" position='justify' color={colors.black}>{"\t"} Your notes to do {todo.length} </Text>
+                        <Text size="15" position='justify' color={colors.black}>{"\t"} Your notes to do  </Text>
                         <Center>
                             <FlatList
                                 data={lastTodo}
@@ -77,7 +75,7 @@ export default function Home({ navigation: { navigate, goBack } }) {
                                 keyExtractor={(item, index) => index + ''}
                                 renderItem={({ item, index }) => <CardNote
                                     data={item}
-                                    onPress={() => showNote(item)}
+                                    onPress={() => showNote(item, utils.todo)}
                                 />}
                                 removeClippedSubviews={true}
                                 onScroll={() => null}
@@ -110,7 +108,7 @@ export default function Home({ navigation: { navigate, goBack } }) {
                                 keyExtractor={(item, index) => index + ''}
                                 renderItem={({ item, index }) => <CardNote
                                     data={item}
-                                    onPress={() => showNote(item)}
+                                    onPress={() => showNote(item, utils.done)}
                                 />}
                                 removeClippedSubviews={true}
                                 onScroll={() => null}

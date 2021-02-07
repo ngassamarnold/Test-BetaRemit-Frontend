@@ -3,7 +3,7 @@
 import { to2Digits } from "./"
 
 export default {
-  make(day, month, year) {
+  make(day, month, year) { 
     day = to2Digits(day)
     month = to2Digits(month + 1)
     year = to2Digits(year)
